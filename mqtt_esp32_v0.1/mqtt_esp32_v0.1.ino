@@ -17,16 +17,20 @@
   - Open the "Tools -> Board -> Board Manager" and click install for the ESP8266"
   - Select your ESP8266 in "Tools -> Board"
 */
+#define BUILTIN_LED 9
+#define LED 5
 
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 
 // Update these with values suitable for your network.
 
 //const char* ssid = "214ho";
 //const char* password = "12345678";
-const char* ssid = "LDH";
-const char* password = "ehdgml43";
+//const char* ssid = "LDH";
+//const char* password = "ehdgml43";
+const char* ssid = "HCN_9E91";
+const char* password = "7263FB9E90";
 const char* mqtt_server = "broker.mqtt-dashboard.com";
 
 WiFiClient espClient;
@@ -73,11 +77,21 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '1') {
-    digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is active low on the ESP-01)
+    Serial.println("1받음");
+    digitalWrite(LED, HIGH);
+//    for(int i=0; i < 255; i++)
+//    {
+//      ledcWrite(LED, i);      
+//      delay(5);
+//    }
   } else {
-    digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
+    Serial.println("0받음");
+    digitalWrite(LED, LOW);
+//    for(int i=256; i>=0; i--)
+//    {
+//      ledcWrite(LED, i);
+//      delay(5);
+//    }
   }
 
 }
@@ -87,7 +101,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
-    String clientId = "ESP8266Client-";
+    String clientId = "ESP32Client-";
     clientId += String(random(0xffff), HEX);
     // Attempt to connect
     if (client.connect(clientId.c_str())) {
@@ -108,6 +122,7 @@ void reconnect() {
 
 void setup() {
   pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
+  pinMode(LED, OUTPUT);
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
