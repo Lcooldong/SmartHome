@@ -3,6 +3,7 @@
 
 void setup() {
   Serial.begin(115200);
+  // PULLUP- 기본 HIGH
   pinMode(button1, INPUT_PULLUP);
   pinMode(button2, INPUT_PULLUP);
 
