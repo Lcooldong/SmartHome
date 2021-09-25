@@ -12,8 +12,12 @@
 //const char* password = "ehdgml43";
 //const char* ssid = "HCN_9E91";
 //const char* password = "7263FB9E90";
-const char* ssid = "iptime";
-const char* password = "";  //비번 없이도 가능
+//const char* ssid = "iptime";
+//const char* password = "";  //비번 없이도 가능
+//const char* ssid = "ㄱㄱㅈ";
+//const char* password = "atelsit84"; 
+const char* ssid = "AndroidHotspot2221";
+const char* password = "01086122221";  
 const char* mqtt_server = "broker.mqtt-dashboard.com";
 
 WiFiClient espClient;
